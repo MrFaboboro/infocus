@@ -148,7 +148,7 @@
                                                 <td>{{user.getRoles[0]}}</td>
                                                 <td>{{user.getAge|date('d-M-Y')}}</td>
                                                 <td>
-                                                    <a href="#"><i class="fas fa-user-plus"></i></a>
+                                                    <a href="{{ path('user_promote', {'id' : user.id}) }}"><i class="fas fa-user-plus"></i></a>
                                                 </td>
                                                 <td>
                                                     <a href="#"><i class="fas fa-user-times"></i></a>
