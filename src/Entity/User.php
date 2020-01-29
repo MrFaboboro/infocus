@@ -41,6 +41,11 @@ class User implements UserInterface
      */
     private $username;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $age;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,6 +127,18 @@ class User implements UserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getAge(): ?\DateTimeInterface
+    {
+        return $this->age;
+    }
+
+    public function setAge(\DateTimeInterface $age): self
+    {
+        $this->age = $age;
 
         return $this;
     }
