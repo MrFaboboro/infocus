@@ -38,11 +38,30 @@ class AdminController extends AbstractController
             );
         }
 
+        // dd($user->getRoles());
         $user->setRoles(['ROLE_AUTHOR']);
         $entityManager->flush();
 
-        return $this->redirectToRoute('user_promote', [
-            'id' => $user->getId()
-        ]);
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/admin/demote/{id}", name="user_demote")
+     */
+    public function demote($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'Not demoted ' . $id
+            );
+        }
+
+        $user->setRoles(['ROLE_USER']);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin');
     }
 }
