@@ -42,7 +42,7 @@ class AdminController extends AbstractController
         $user->setRoles(['ROLE_AUTHOR']);
         $entityManager->flush();
 
-        return $this->redirectToRoute('admin');
+        return $this->render('admin/dashboard.html.twig');
     }
 
     /**
@@ -62,6 +62,15 @@ class AdminController extends AbstractController
         $user->setRoles(['ROLE_USER']);
         $entityManager->flush();
 
-        return $this->redirectToRoute('admin');
+        return $this->render('admin/dashboard.html.twig');
+    }
+
+    /**
+     * @Route("/admin/users", name="admin_users")
+     */
+    public function users()
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->findAll();
+        return $this->render('admin/users.html.twig', ['user' => $user]);
     }
 }
