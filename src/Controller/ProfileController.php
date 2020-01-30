@@ -15,6 +15,6 @@ class ProfileController extends AbstractController
     public function userProfile($username)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username' => $username]);
-        return $this->render('profile/index.html.twig', ['user' => $user]);
+        return $this->render('profile/profile.html.twig', ['user' => $user]);
     }
 }
