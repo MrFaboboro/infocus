@@ -92,11 +92,11 @@
 								</div>
 								{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
 									<div class="get-quote d-none d-lg-block">
-										<button class="btn text-white main-color" href="#">Login</button>
+										<a class="btn text-white main-color" href="/login">Login</a>
 									</div>
 								{% else %}
 									<div class="get-quote d-none d-lg-block">
-										<button class="btn text-white main-color" href="/profile">Profile</button>
+										<a class="btn text-white main-color" href="/profile">Profile</a>
 									</div>
 								{% endif %}
 

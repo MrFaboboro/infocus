@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Form\EditProfileType;
 use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @IsGranted("IS_AUTHENTICATED_FULLY")
@@ -17,46 +19,21 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/profile", name="user_profile")
+     * @Route("/profile")
      */
-    public function userProfile(UserInterface $user)
-    {
-        // get userdata
-        $userId = $user->getId();
-        $userName = $user->getUsername();
-        $userEmail = $user->getEmail();
-        $userAge = $user->getAge();
-        $userRole = $user->getRoles();
-
-        // send userdata to profile.html.twig
-        return $this->render('profile/profile.html.twig', [
-            'userId' => $userId,
-            'userName' => $userName,
-            'userEmail' => $userEmail,
-            'userAge' => $userAge,
-            'userRole' => $userRole,
-        ]);
-    }
-
-
-    /**
-     * @Route("/profile/edit/{id}")
-     */
-    public function editProfile($id)
+    public function editProfile(Request $request, GuardAuthenticatorHandler $guardHandler, UserInterface $user): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository(User::class)->find($id);
+        $form = $this->createForm(EditProfileType::class, $user);
+        $form->handleRequest($request);
 
-        if (!$user) {
-            throw $this->createNotFoundException(
-                $e . 'Profile not edited ' . $id
-            );
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $em->persist($user);
+            $em->flush();
         }
-
-        $user->setUsername($request->username)
-            ->setEmail($request->email);
-        $em->flush();
-
-        return $this->render('profile/profile.html.twig');
+        return $this->render('profile/profile.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
