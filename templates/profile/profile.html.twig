@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-	{{ userName }}
+	{{ app.user.username }}
 {% endblock %}
 {% block body %}
 	<div class="container">
@@ -9,11 +9,9 @@
 				<div class="bg-white shadow p-4 p-lg-5">
 					<div class="row pb-lg-4">
 						<div class="col-9">
-							<h3>{{ userName }}</h3>
+							<h3>{{ app.user.username }}</h3>
 						</div>
-						<div class="col-3">
-							<a href="#" class="btn btn-outline-secondary">Account bewerken</a>
-						</div>
+						<div class="col-3"></div>
 					</div>
 					<div class="information-field pb-lg-4 pt-lg-4">
 						<div class="profile-header-img pb-4">
@@ -28,14 +26,31 @@
 							<p>Role:</p>
 						</div>
 						<div class="col information-field pb-lg-2">
-							<input type="text" value="{{ userName }}" disabled>
-							<p>{{ userAge|date('d-M-Y') }}</p>
-							<input type="email" value="{{ userEmail }}" disabled>
-							<p>{{ userRole[0][5:] }}</p>
+							{{ form_start(form) }}
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="medium mb-1" for="registration_form_username">Name</label>
+									{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="medium mb-1" for="registration_form_age">Age</label>
+									{{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }}</div>
+							</div>
+							<div class="form-group col-md-10">
+								<button class="btn text-white main-color">submit</button>
+							</div>
+
+							{{ form_end(form) }}
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		$(function () {
+$('#edit_profile_age').datetimepicker();
+});
+	</script>
 {% endblock %}
