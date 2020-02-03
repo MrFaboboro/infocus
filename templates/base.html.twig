@@ -8,19 +8,21 @@
 			{% block title %}Welcome!
 			{% endblock %}
 		</title>
-		{% block stylesheets %}
-			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-			<link rel="stylesheet" href="{{ asset('css/style.css') }}">
-			<link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css')}}">
-			<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css')}}">
-			<link rel="stylesheet" href="{{ asset('css/themify-icons.css')}}">
-			<link rel="stylesheet" href="{{ asset('css/nice-select.css')}}">
-			<link rel="stylesheet" href="{{ asset('css/flaticon.css')}}">
-			<link rel="stylesheet" href="{{ asset('css/animate.css')}}">
-			<link rel="stylesheet" href="{{ asset('css/slicknav.css')}}">
-			<link rel="stylesheet" href="{{ asset('css/responsive.css')}}">
-		{% endblock %}
-
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/themify-icons.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/nice-select.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/flaticon.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/animate.css')}}">
+		<link rel="stylesheet" href="{{ asset('css/slicknav.css')}}">
+		<style>
+			.main-color {
+				background-color: rgb(80, 185, 72);
+			}
+		</style>
+		{% block stylesheets %}{% endblock %}
 	</head>
 	<header>
 		<div class="header-area ">
@@ -88,9 +90,16 @@
 										<i class="fa fa-search"></i>
 									</a>
 								</div>
-								<div class="get-quote d-none d-lg-block">
-									<a class="boxed-btn" href="#">Aanmelden</a>
-								</div>
+								{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+									<div class="get-quote d-none d-lg-block">
+										<button class="btn text-white main-color" href="#">Login</button>
+									</div>
+								{% else %}
+									<div class="get-quote d-none d-lg-block">
+										<button class="btn text-white main-color" href="/profile">Profile</button>
+									</div>
+								{% endif %}
+
 							</div>
 						</div>
 						<div class="col-12">

@@ -1,22 +1,41 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}
+	{{ userName }}
+{% endblock %}
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
-
-	<div class="example-wrapper">
-		<h1>Hello
-			{{ user.getUsername }}! ✅
-		</h1>
+	<div class="container">
+		<div class="row px-2 px-lg-3 m-0">
+			<div class="col-lg-12 p-2 p-lg-4">
+				<div class="bg-white shadow p-4 p-lg-5">
+					<div class="row pb-lg-4">
+						<div class="col-9">
+							<h3>{{ userName }}</h3>
+						</div>
+						<div class="col-3">
+							<a href="#" class="btn btn-outline-secondary">Account bewerken</a>
+						</div>
+					</div>
+					<div class="information-field pb-lg-4 pt-lg-4">
+						<div class="profile-header-img pb-4">
+							<img class="rounded-sm" style="width:15%;" src="{{ asset('img/profile.png') }}">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col information-field pb-lg-2">
+							<p>Name:</p>
+							<p>Age:</p>
+							<p>Email:</p>
+							<p>Role:</p>
+						</div>
+						<div class="col information-field pb-lg-2">
+							<input type="text" value="{{ userName }}" disabled>
+							<p>{{ userAge|date('d-M-Y') }}</p>
+							<input type="email" value="{{ userEmail }}" disabled>
+							<p>{{ userRole[0][5:] }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %}
