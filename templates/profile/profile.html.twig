@@ -2,6 +2,9 @@
 {% block title %}
 	{{ app.user.username }}
 {% endblock %}
+{% block stylesheets %}
+	<link type="text/css" rel="stylesheet" href="css/photos.css">
+{% endblock %}
 {% block body %}
 	<div class="container">
 		<div class="row px-2 px-lg-3 m-0">
@@ -40,17 +43,53 @@
 							<div class="form-group col-md-10">
 								<button class="btn text-white main-color">submit</button>
 							</div>
-
 							{{ form_end(form) }}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12 p-2 p-lg-4">
+				<div class="bg-white shadow p-4 p-lg-5">
+					<div class="pb-lg-5">
+						<h3>Foto's</h3>
+					</div>
+					<div class="text-center row">
+						<div class="col-lg-4 p-2">
+							<div class="hovereffect">
+								<img class="img-responsive" src="{{ asset('img/uploaded/close-up-of-leaf-326055.jpg') }}">
+								<div class="overlay">
+									<a href="#">
+										<h2>Title</h2>
+										<p>Meer informatie</p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 p-2">
+							<div class="hovereffect">
+								<img class="img-responsive" src="{{ asset('img/uploaded/nature-forest-trees-fog-4827.jpg') }}">
+								<div class="overlay">
+									<a href="#">
+										<h2>Title</h2>
+										<p>Meer informatie</p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 p-2">
+							<div class="hovereffect">
+								<img class="img-responsive" src="{{ asset('img/uploaded/trees-in-park-257360.jpg') }}">
+								<div class="overlay">
+									<a href="#">
+										<h2>Title</h2>
+										<p>Meer informatie</p>
+									</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script>
-		$(function () {
-$('#edit_profile_age').datetimepicker();
-});
-	</script>
 {% endblock %}

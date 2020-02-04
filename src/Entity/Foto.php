@@ -22,32 +22,38 @@ class Foto
     private $titel;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $beschrijving;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="categorie")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $categorie;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Camera", inversedBy="camera")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $camera;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Comment", inversedBy="Reactie")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $comment;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fileurl;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="fotos")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -74,18 +80,6 @@ class Foto
     public function setBeschrijving(?string $beschrijving): self
     {
         $this->beschrijving = $beschrijving;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }
@@ -122,6 +116,30 @@ class Foto
     public function setComment(?Comment $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getFileurl(): ?string
+    {
+        return $this->fileurl;
+    }
+
+    public function setFileurl(string $fileurl): self
+    {
+        $this->fileurl = $fileurl;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
