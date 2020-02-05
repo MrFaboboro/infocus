@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -45,6 +47,16 @@ class User implements UserInterface
      * @ORM\Column(type="date")
      */
     private $age;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Foto", mappedBy="user")
+     */
+    private $fotos;
+
+    public function __construct()
+    {
+        $this->fotos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -155,5 +167,36 @@ class User implements UserInterface
         list(
             $this->id, $this->username, $this->email,
         ) = unserialize($serialized);
+    }
+
+    /**
+     * @return Collection|Foto[]
+     */
+    public function getFotos(): Collection
+    {
+        return $this->fotos;
+    }
+
+    public function addFoto(Foto $foto): self
+    {
+        if (!$this->fotos->contains($foto)) {
+            $this->fotos[] = $foto;
+            $foto->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFoto(Foto $foto): self
+    {
+        if ($this->fotos->contains($foto)) {
+            $this->fotos->removeElement($foto);
+            // set the owning side to null (unless already changed)
+            if ($foto->getUser() === $this) {
+                $foto->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

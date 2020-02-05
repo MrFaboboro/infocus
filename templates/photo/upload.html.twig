@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload a photo
+{% endblock %}
+
+{% block body %}
+	<style>
+		.textarea {
+			min-height: 400px !important;
+		}
+	</style>
+	<div class="container">
+		<h1>Upload a photo to the site</h1>
+		{{ form_start(form) }}
+		<div class="form-row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<span class="" for="photo_upload_titel">Titel</span>
+					{{ form_widget(form.titel, {'attr': {'class': 'form-control'}}) }}
+					<br>
+					<span class="" for="photo_upload_fileurl">Photo to upload</span>
+					{{ form_widget(form.fileurl, {'attr': {'class': 'form-control-file'}}) }}</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<span class="textarea" for="photo_upload_beschrijving">Beschrijving</span>
+					{{ form_widget(form.beschrijving, {'attr': {'class': 'form-control', 'rows': 4}}) }}</div>
+			</div>
+			<div class="form-group col-md-10">
+				<button class="btn text-white main-color">submit</button>
+			</div>
+		</div>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

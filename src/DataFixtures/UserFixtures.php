@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Foto;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -26,8 +27,16 @@ class UserFixtures extends Fixture
             'password'
         ));
         $user->setRoles(['ROLE_ADMIN']);
-        $manager->persist($user);
 
+        $foto = new Foto();
+        $foto->setTitel('Titel');
+        $foto->setBeschrijving('safageewgweg');
+        $foto->setFileurl('346387u892f.jpg');
+        $foto->setUser($user);
+        $manager->persist($foto);
+
+
+        $manager->persist($user);
         $manager->flush();
     }
 }
