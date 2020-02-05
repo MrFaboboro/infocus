@@ -85,11 +85,6 @@
 						</div>
 						<div class="col-xl-3 col-lg-3">
 							<div class="quote-area">
-								<div class="search-bar">
-									<a id="search_1" href="javascript:void(0)">
-										<i class="fa fa-search"></i>
-									</a>
-								</div>
 								{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
 									<div class="get-quote d-none d-lg-block">
 										<a class="btn text-white main-color" href="/login">Login</a>
@@ -104,15 +99,6 @@
 						</div>
 						<div class="col-12">
 							<div class="mobile_menu d-block d-lg-none"></div>
-						</div>
-					</div>
-					<div class="search_input" id="search_input_box">
-						<div class="container ">
-							<form class="d-flex justify-content-between search-inner">
-								<input type="text" class="form-control" id="search_input" placeholder="Zoek...">
-								<button type="submit" class="btn"></button>
-								<span class="fa fa-close" id="close_search" title="Close Search"></span>
-							</form>
 						</div>
 					</div>
 				</div>
@@ -181,14 +167,11 @@
 				<div class="row justify-content-center">
 					<div class="col-lg-12">
 						<div class="copyright_part_text text-center">
-							<p
-								class="footer-text m-0">
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							<p class="footer-text m-0">
 								Copyright &copy;<script>
 									document.write(new Date().getFullYear());
 								</script>
 								Onetoshop
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 							</p>
 						</div>
 					</div>

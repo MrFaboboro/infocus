@@ -53,43 +53,29 @@
 					<div class="pb-lg-5">
 						<h3>Foto's</h3>
 					</div>
-					<div class="text-center row">
-						<div class="col-lg-4 p-2">
-							<div class="hovereffect">
-								<img class="img-responsive" src="{{ asset('img/uploaded/close-up-of-leaf-326055.jpg') }}">
-								<div class="overlay">
-									<a href="#">
-										<h2>Title</h2>
-										<p>Meer informatie</p>
-									</a>
+					{% if user.fotos is not empty %}
+						<div class="text-center row">
+							{% for fotos in user.fotos %}
+								<div class="col-lg-4 p-2">
+									<div class="hovereffect">
+										<a href="{{ path('actual_photo', {id: fotos.id, slug: fotos.titel}) }}">
+											<img class="img-responsive" src="{{ asset('img/uploaded/' ~ fotos.fileurl) }}">
+											<div class="overlay">
+												<h2>{{ fotos.titel }}</h2>
+											</div>
+										</a>
+									</div>
 								</div>
-							</div>
+							{% endfor %}
 						</div>
-						<div class="col-lg-4 p-2">
-							<div class="hovereffect">
-								<img class="img-responsive" src="{{ asset('img/uploaded/nature-forest-trees-fog-4827.jpg') }}">
-								<div class="overlay">
-									<a href="#">
-										<h2>Title</h2>
-										<p>Meer informatie</p>
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 p-2">
-							<div class="hovereffect">
-								<img class="img-responsive" src="{{ asset('img/uploaded/trees-in-park-257360.jpg') }}">
-								<div class="overlay">
-									<a href="#">
-										<h2>Title</h2>
-										<p>Meer informatie</p>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
+					{% else %}
+						<form action="/photos/new">
+							<p>You don't have any photos uploaded.</p>
+							<a href="/photos/new" class="btn text-white main-color">Upload now!</a>
+						</form>
+					{% endif %}
 				</div>
 			</div>
 		</div>
 	</div>
-{% endblock %}
+</div>{% endblock %}

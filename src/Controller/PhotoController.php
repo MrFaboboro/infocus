@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class PhotoController extends AbstractController
 {
@@ -34,7 +35,7 @@ class PhotoController extends AbstractController
                 // hash file name for unique id
                 $newFileName = md5(uniqid()) . '.' . $photoFile->guessExtension();
 
-                // save image
+                // save image or throw error
                 try {
                     $photoFile->move(
                         $this->getParameter('img/uploaded'),
@@ -53,7 +54,8 @@ class PhotoController extends AbstractController
             $em->persist($photo);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('home'));
+            // go to, in this case, /photos after the photo has been uploaded
+            return $this->redirect($this->generateUrl('photo'));
         }
 
         return $this->render('photo/upload.html.twig', [
@@ -66,14 +68,26 @@ class PhotoController extends AbstractController
      */
     public function showPage()
     {
-        $photo = $this->getDoctrine()->getRepository(Foto::class)->findAll();
-        return $this->render('photo/photos.html.twig', ['photo' => $photo]);
+        // show all photos on the page
+        $foto = $this->getDoctrine()->getRepository(Foto::class)->findAll();
+        return $this->render('photo/photos.html.twig', ['foto' => $foto]);
+
+        // TODO: categories
     }
 
     /**
-     * @Route("photos/{slug}")
+     * @Route("photos/{id}/{slug}", name="actual_photo")
      */
-    public function showRedirect($slug)
+    public function showPhoto($id, UserInterface $user)
     {
+        $foto = $this->getDoctrine()->getRepository(Foto::class)->findOneBy([
+            'id' => $id
+        ]);
+
+        $slug = $foto->getTitel();
+        return $this->render('photo/actualphoto.html.twig', [
+            'foto' => $foto,
+            'user' => $user->getFotos(),
+        ]);
     }
 }

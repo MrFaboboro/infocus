@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Foto;
 use App\Entity\User;
 use App\Form\EditProfileType;
+use App\Repository\FotoRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,9 +21,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/profile")
+     * @Route("/profile", name="profile")
      */
-    public function editProfile(Request $request, GuardAuthenticatorHandler $guardHandler, UserInterface $user): Response
+    public function profile(Request $request, GuardAuthenticatorHandler $guardHandler, UserInterface $user): Response
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(EditProfileType::class, $user);
@@ -32,8 +34,13 @@ class ProfileController extends AbstractController
             $em->persist($user);
             $em->flush();
         }
+
+        $fotos = $user->getFotos();
+
+        // dd($fotos);
         return $this->render('profile/profile.html.twig', [
             'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 }
