@@ -2,10 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Foto;
 use App\Entity\User;
 use Doctrine\DBAL\Types\SmallIntType;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -46,8 +50,17 @@ class PhotoUploadType extends AbstractType
                     ])
                 ],
             ])
-            ->add('categorie', HiddenType::class, [
-                'required' => false
+            ->add('categories', EntityType::class, [
+                'required' => true,
+                'class' => Category::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('categories')
+                        ->orderBy('categories.name', 'ASC');
+                },
+                'choice_label' => 'name',
+                'label' => false,
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('camera', HiddenType::class, [
                 'required' => false

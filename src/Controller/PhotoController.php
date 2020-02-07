@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Foto;
 use App\Entity\User;
 use App\Form\PhotoUploadType;
@@ -22,6 +23,8 @@ class PhotoController extends AbstractController
         $photo = new Foto();
         $user = $this->getUser();
 
+        $category = $this->getCategories();
+
         $form = $this->createForm(PhotoUploadType::class, $photo);
         $form->handleRequest($request);
 
@@ -29,6 +32,7 @@ class PhotoController extends AbstractController
             /** @var UploadedFile $photoFile */
             $photoFile = $form->get('fileurl')->getData();
 
+            $category->addPhoto($photo->getId);
 
             // file rename
             if ($photoFile) {
@@ -48,7 +52,7 @@ class PhotoController extends AbstractController
                 // set data in database
                 $photo->setFileurl($newFileName);
             }
-            $photo->setUser($user);
+            $photo->setUser($user)->addCategory($category);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($photo);

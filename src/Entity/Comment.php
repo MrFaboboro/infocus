@@ -29,11 +29,6 @@ class Comment
     private $comment;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Categorie", mappedBy="comment")
-     */
-    private $reactie;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Foto", mappedBy="comment")
      */
     private $Reactie;
@@ -69,37 +64,6 @@ class Comment
     public function setComment(string $comment): self
     {
         $this->comment = $comment;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Categorie[]
-     */
-    public function getReactie(): Collection
-    {
-        return $this->reactie;
-    }
-
-    public function addReactie(Categorie $reactie): self
-    {
-        if (!$this->reactie->contains($reactie)) {
-            $this->reactie[] = $reactie;
-            $reactie->setComment($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReactie(Categorie $reactie): self
-    {
-        if ($this->reactie->contains($reactie)) {
-            $this->reactie->removeElement($reactie);
-            // set the owning side to null (unless already changed)
-            if ($reactie->getComment() === $this) {
-                $reactie->setComment(null);
-            }
-        }
 
         return $this;
     }
