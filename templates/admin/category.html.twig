@@ -20,15 +20,26 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>Categroy ID</th>
+							<th>ID</th>
 							<th>Name</th>
+							<th>Delete</th>
 						</tr>
 					</thead>
+					<tfoot>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Delete</th>
+						</tr>
+					</tfoot>
 					<tbody>
 						{% for category in category %}
 							<tr>
 								<td>{{category.getId}}</td>
 								<td>{{category.getName}}</td>
+								<td>
+									<a class="btn btn-block btn-danger" href="{{ path('admin_cat_delete', {'id' : category.id}) }}">Delete</a>
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>
@@ -36,4 +47,7 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="./node_modules/chartjs/dist/Chart.js"></script>
 {% endblock %}

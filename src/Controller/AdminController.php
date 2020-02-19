@@ -129,4 +129,22 @@ class AdminController extends AbstractController
         $category = $this->getDoctrine()->getRepository(Category::class)->findAll();
         return $this->render('admin/category.html.twig', ['category' => $category, 'form' => $form->createView()]);
     }
+    /**
+     * @Route("/admin/categories/delete/{id}", name="admin_cat_delete")
+     */
+    public function rmCat($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository(Category::class)->find($id);
+
+        if (!$category) {
+            throw $this->createNotFoundException(
+                'Not deleted ' . $id
+            );
+        }
+        $em->remove($category);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('admin_categories'));
+    }
 }
