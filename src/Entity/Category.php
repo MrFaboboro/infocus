@@ -24,7 +24,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Foto", inversedBy="categories")
+     * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="category")
      */
     private $photos;
 
@@ -51,28 +51,38 @@ class Category
     }
 
     /**
-     * @return Collection|Foto[]
+     * @return Collection|Photo[]
      */
     public function getPhotos(): Collection
     {
         return $this->photos;
     }
 
-    public function addPhoto(Foto $photo): self
+    public function addPhoto(Photo $photo): self
     {
         if (!$this->photos->contains($photo)) {
             $this->photos[] = $photo;
+            $photo->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removePhoto(Foto $photo): self
+    public function removePhoto(Photo $photo): self
     {
         if ($this->photos->contains($photo)) {
             $this->photos->removeElement($photo);
+            // set the owning side to null (unless already changed)
+            if ($photo->getCategory() === $this) {
+                $photo->setCategory(null);
+            }
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

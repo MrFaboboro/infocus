@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Category;
-use App\Entity\Foto;
+use App\Entity\Photo;
 use App\Entity\User;
 use Doctrine\DBAL\Types\SmallIntType;
 use Doctrine\ORM\EntityRepository;
@@ -25,14 +25,14 @@ class PhotoUploadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titel', TextType::class, [
+            ->add('title', TextType::class, [
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 3, 'max' => 30])
                 ]
             ])
-            ->add('beschrijving', TextareaType::class, [
+            ->add('description', TextareaType::class, [
                 'constraints' => [
                     new Length(['max' => 255])
                 ]
@@ -50,30 +50,15 @@ class PhotoUploadType extends AbstractType
                     ])
                 ],
             ])
-            ->add('categories', EntityType::class, [
-                'required' => true,
+            ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('categories')
-                        ->orderBy('categories.name', 'ASC');
-                },
-                'choice_label' => 'name',
-                'label' => false,
-                'multiple' => true,
-                'expanded' => true,
-            ])
-            ->add('camera', HiddenType::class, [
-                'required' => false
-            ])
-            ->add('comment', HiddenType::class, [
-                'required' => false
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Foto::class,
+            'data_class' => Photo::class,
         ]);
     }
 }

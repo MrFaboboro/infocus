@@ -4,37 +4,28 @@
 {% endblock %}
 
 {% block body %}
-	<style>
-		.textarea {
-			min-height: 400px !important;
-		}
-	</style>
 	<div class="container">
-		<h1>Upload a photo to the site</h1>
-		{{ form_start(form) }}
+		<h1 class="d-flex justify-content-center mt-30 mb-30">Upload a photo to the site</h1>
+		{{form_start(form)}}
+		<div class="form-group">
+			<label for="photo_upload_title">Title</label>
+			{{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Choose a title'}}) }}
+		</div>
 		<div class="form-row">
-			<div class="col-md-6">
-				<div class="form-group">
-					<span class="" for="photo_upload_titel">Titel</span>
-					{{ form_widget(form.titel, {'attr': {'class': 'form-control'}}) }}
-					<br>
-					<span class="" for="photo_upload_fileurl">Photo to upload</span>
-					{{ form_widget(form.fileurl, {'attr': {'class': 'form-control-file'}}) }}</div>
+			<div class="form-group col-md-6">
+				<label for="photo_upload_category">Category</label>
+				{{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
 			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<span class="textarea" for="photo_upload_beschrijving">Beschrijving</span>
-					{{ form_widget(form.beschrijving, {'attr': {'class': 'form-control', 'rows': 4}}) }}</div>
-			</div>
-			<div class="col-md-12">
-				<div class="form-group">
-					{{ form_widget(form.categories, {'attr': {'class': 'form-control'}}) }}
-				</div>
-			</div>
-			<div class="form-group col-md-10">
-				<button class="btn text-white main-color">submit</button>
+			<div class="form-group col-md-6">
+				<label for="photo_upload_fileurl">Photo to upload</label>
+				{{ form_widget(form.fileurl, {'attr': {'class': 'form-control-file'}}) }}
 			</div>
 		</div>
+		<div class="form-group">
+			<label for="photo_upload_descriptio">Description</label>
+			{{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': 4, 'placeholder': 'Tell us something about the picture'}}) }}
+		</div>
+		<button class="btn text-white main-color">Submit</button>
+		{{form_end(form)}}
 	</div>
-	{{ form_end(form) }}
 {% endblock %}

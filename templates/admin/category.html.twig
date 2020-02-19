@@ -1,0 +1,39 @@
+{% extends 'admin/route.html.twig' %}
+
+{% block body %}
+	<div class="card mb-4">
+		<div class="card-header">
+			<i class="fas fa-table mr-1"></i>Category data</div>
+		<div class="card-body">
+			{{ form_start(form) }}
+			<div class="form-row">
+				<div class="col-md-8">
+					{{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Name new category'}}) }}
+				</div>
+				<div class="col-md-4">
+					<button class="btn btn-primary">
+						Submit</button>
+				</div>
+			</div>
+			{{ form_end(form) }}
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Categroy ID</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for category in category %}
+							<tr>
+								<td>{{category.getId}}</td>
+								<td>{{category.getName}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

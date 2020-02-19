@@ -12,7 +12,15 @@
 				<div class="bg-white shadow p-4 p-lg-5">
 					<div class="row pb-lg-4">
 						<div class="col-9">
-							<h3>{{ app.user.username }}</h3>
+							{% if (user.getRoles[0] == "ROLE_ADMIN" or user.getRoles[0] == "ROLE_SUPER_ADMIN") %}
+								<h3>
+									<a href="/admin">{{ app.user.username }}</a>
+								</h3>
+							{% else %}
+								<h3>
+									{{ app.user.username }}
+								</h3>
+							{% endif %}
 						</div>
 						<div class="col-3"></div>
 					</div>
@@ -51,17 +59,17 @@
 			<div class="col-lg-12 p-2 p-lg-4">
 				<div class="bg-white shadow p-4 p-lg-5">
 					<div class="pb-lg-5">
-						<h3>Foto's</h3>
+						<h3>photo's</h3>
 					</div>
-					{% if user.fotos is not empty %}
+					{% if user.photos is not empty %}
 						<div class="text-center row">
-							{% for fotos in user.fotos %}
+							{% for photos in user.photos %}
 								<div class="col-lg-4 p-2">
 									<div class="hovereffect">
-										<a href="{{ path('actual_photo', {id: fotos.id, slug: fotos.titel|lower|replace({' ': '-'}) }) }}">
-											<img class="img-responsive" src="{{ asset('img/uploaded/' ~ fotos.fileurl) }}">
+										<a href="{{ path('actual_photo', {id: photos.id, slug: photos.title|lower|replace({' ': '-'}) }) }}">
+											<img class="img-responsive" src="{{ asset('img/uploaded/' ~ photos.fileurl) }}">
 											<div class="overlay">
-												<h2>{{ fotos.titel }}</h2>
+												<h2>{{ photos.title }}</h2>
 											</div>
 										</a>
 									</div>
