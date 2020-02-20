@@ -36,7 +36,7 @@
 						{% for photos in photo %}
 							<div class="col-lg-4 p-2">
 								<div class="hovereffect">
-									<a href="{{ path('actual_photo', {id: photos.id, slug: photos.title})|lower }}">
+									<a href="{{ path('actual_photo', {id: photos.id, slug: photos.title|lower|replace({' ': '-'}) }) }}">
 										<img class="img-responsive" src="{{ asset('img/uploaded/' ~ photos.fileurl) }}">
 										<div class="overlay">
 											<h2>{{ photos.title }}</h2>

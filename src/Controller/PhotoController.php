@@ -52,6 +52,8 @@ class PhotoController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($photo);
             $em->flush();
+
+            return $this->redirect($this->generateUrl('photo'));
         }
 
         return $this->render('photo/upload.html.twig', [

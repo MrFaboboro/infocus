@@ -1,8 +1,33 @@
 {% extends 'admin/route.html.twig' %}
 {% block body %}
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fa fa-chart-pie"></i>
+					Total Users
+				</div>
+				<div class="card-body">
+					<canvas id="totalUsers"></canvas>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fa fa-chart-pie"></i>
+					Total Users
+				</div>
+				<div class="card-body">
+					<canvas id=""></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="card mb-4">
 		<div class="card-header">
-			<i class="fas fa-table mr-1"></i>Active Users</div>
+			<i class="fas fa-table mr-1"></i>Active Users
+		</div>
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -116,6 +141,9 @@
 				</table>
 			</div>
 		</div>
-
 	</div>
+	<script src="{{ asset('js/total-users.js') }}"></script>
+{% endblock %}
+{% block javascripts %}
+	{# <script src="{{ asset('js/.js') }}"></script> #}
 {% endblock %}

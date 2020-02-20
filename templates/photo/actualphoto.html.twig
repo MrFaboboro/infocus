@@ -10,61 +10,47 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container bg-white shadow p-lg-4 p-md-3 p-sm-2">
+	<div class="container bg-white shadow-sm">
 		<div class="row py-4">
 			<div class=" col-lg-12 pb-5">
 				<div class="row py-4">
 					<div class=" col-lg-12 pb-5">
 						<h2 class="text-center">{{ photo.title }}</h2>
 					</div>
-					<div class="col-lg-6 pr-3">
-						<div id="imageContainer">
-							<img style="width: 100%" src="{{ asset('img/uploaded/' ~ photo.fileurl) }}">
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div
-							class="shadow p-3 h-100">
-							{# <h4>Author</h4>
-																																			<p>{{ photo.user.userName }}</p> #}
-							<h4>Description</h4>
-							<p>{{ photo.description }}</p>
+					<div class="col-lg-12 pr-3">
+						<div id="imageContainer" class="shadow-sm p-3 h-100">
+							<img data-toggle="modal" data-target="#myModal" style="width: 100%" src="{{ asset('img/uploaded/' ~ photo.fileurl) }}">
 						</div>
 					</div>
 				</div>
 
 				<div class="row py-4">
-					<div class="col-lg-6">
-						<div class="shadow p-3 h-100">
-							<div class="catergorie">
-								<h4>Catergorie</h4>
-								{# @foreach($categories as $categorie) #}
-								<p>categorie->name</p>
-								{# @endforeach #}
-							</div>
+					<div class="col-lg-6 pr-3">
+						<div class="shadow-sm p-3 h-100">
+							<h4>Description</h4>
+							<p>{{ photo.description }}</p>
 						</div>
 					</div>
 					<div class="col-lg-6">
-						<div class="shadow p-3 h-100">
-							<h4>Camera informatie</h4>
-							<h5 class="pt-3">Camera:</h5>
-							<p>camera->cameraBrand</p>
+						<div class="shadow-sm p-3 h-100">
+							<div class="catergorie">
+								<h4>Catergory</h4>
+								<p>{{ photo.category }}</p>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="row pt-4">
-					<div
-						class="col-md-6 col-md-offset-2">
-						{# @foreach($posts as $comment) #}
-						<div class="shadow rounded p-3">
+					<div class="col-md-12 col-md-offset-2">
+						<div class="shadow-sm rounded p-3">
+							<h4>Comments</h4>
 							<p>
-								<strong>Name:</strong>comment name</p>
+								<strong>Name:</strong><br/>Username</p>
 							<p>
-								<strong>Comment:</strong><br/>comment comment</p>
+								<strong>Comment:</strong><br/>This is a constructive comment saying nothing useful</p>
 						</div>
 						<br>
-						{# @endforeach #}
 					</div>
 
 					<div id="comment-form" class="col-md-6 col-md-offset-2">
@@ -87,4 +73,6 @@
 			</div>
 		</div>
 	</div>
+
+
 {% endblock %}
