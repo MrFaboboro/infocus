@@ -26,11 +26,11 @@ class Controller extends AbstractController
     }
 
     /**
-     * @Route("/projecten", name="projecten")
+     * @Route("/about", name="about")
      */
-    public function projecten()
+    public function about()
     {
-        return $this->render('project/projecten.html.twig');
+        return $this->render('about/about.html.twig');
     }
 
     /**

@@ -49,13 +49,19 @@ class User implements UserInterface
     private $age;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Foto", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="user")
      */
-    private $fotos;
+    private $photos;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
 
     public function __construct()
     {
         $this->fotos = new ArrayCollection();
+        $this->photos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -170,32 +176,44 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Foto[]
+     * @return Collection|Photo[]
      */
-    public function getFotos(): Collection
+    public function getPhotos(): Collection
     {
-        return $this->fotos;
+        return $this->photos;
     }
 
-    public function addFoto(Foto $foto): self
+    public function addPhoto(Photo $photo): self
     {
-        if (!$this->fotos->contains($foto)) {
-            $this->fotos[] = $foto;
-            $foto->setUser($this);
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeFoto(Foto $foto): self
+    public function removePhoto(Photo $photo): self
     {
-        if ($this->fotos->contains($foto)) {
-            $this->fotos->removeElement($foto);
+        if ($this->photos->contains($photo)) {
+            $this->photos->removeElement($photo);
             // set the owning side to null (unless already changed)
-            if ($foto->getUser() === $this) {
-                $foto->setUser(null);
+            if ($photo->getUser() === $this) {
+                $photo->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

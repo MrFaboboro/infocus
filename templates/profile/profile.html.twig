@@ -12,38 +12,52 @@
 				<div class="bg-white shadow p-4 p-lg-5">
 					<div class="row pb-lg-4">
 						<div class="col-9">
-							<h3>{{ app.user.username }}</h3>
+							{% if (user.getRoles[0] == "ROLE_ADMIN" or user.getRoles[0] == "ROLE_SUPER_ADMIN") %}
+								<h3>
+									<a href="/admin">{{ app.user.username }}</a>
+								</h3>
+							{% else %}
+								<h3>
+									{{ app.user.username }}
+								</h3>
+							{% endif %}
 						</div>
 						<div class="col-3"></div>
 					</div>
-					<div class="information-field pb-lg-4 pt-lg-4">
-						<div class="profile-header-img pb-4">
-							<img class="rounded-sm" style="width:15%;" src="{{ asset('img/profile.png') }}">
+					<div class="row">
+						<div class="col information-field pb-lg-4 pt-lg-4">
+							<div class="profile-header-img pb-4">
+								<img class="rounded-sm" style="max-width:50%;" src="{{ asset('img/profile.png') }}">
+							</div>
+						</div>
+						<div class="col information-field pb-lg-4 pt-lg-4">
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="registration_upload_username">Username</label>
+									{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+								</div>
+								<div class="form-group col-md-6">
+									<label for="registration_upload_age">Age</label>
+									{{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }}
+								</div>
+							</div>
+							<div class="form-group">
+								<button class="btn text-white main-color">Change information</button>
+							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col information-field pb-lg-2">
+						<div class="col information-field pb-md-3">
 							<p>Name:</p>
-							<p>Age:</p>
+							<p>Date of Birth:</p>
 							<p>Email:</p>
 							<p>Role:</p>
 						</div>
-						<div class="col information-field pb-lg-2">
-							{{ form_start(form) }}
-							<div class="col-md-12">
-								<div class="form-group">
-									<label class="medium mb-1" for="registration_form_username">Name</label>
-									{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}</div>
-							</div>
-							<div class="col-md-12">
-								<div class="form-group">
-									<label class="medium mb-1" for="registration_form_age">Age</label>
-									{{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }}</div>
-							</div>
-							<div class="form-group col-md-10">
-								<button class="btn text-white main-color">submit</button>
-							</div>
-							{{ form_end(form) }}
+						<div class="col information-field pb-md-3">
+							<p>{{ app.user.username }}</p>
+							<p>{{ app.user.age|date("d M Y") }}</p>
+							<p>{{ app.user.email }}</p>
+							<p>{{ app.user.roles[0] }}</p>
 						</div>
 					</div>
 				</div>
@@ -51,17 +65,17 @@
 			<div class="col-lg-12 p-2 p-lg-4">
 				<div class="bg-white shadow p-4 p-lg-5">
 					<div class="pb-lg-5">
-						<h3>Foto's</h3>
+						<h3>My works</h3>
 					</div>
-					{% if user.fotos is not empty %}
+					{% if user.photos is not empty %}
 						<div class="text-center row">
-							{% for fotos in user.fotos %}
+							{% for photos in user.photos %}
 								<div class="col-lg-4 p-2">
 									<div class="hovereffect">
-										<a href="{{ path('actual_photo', {id: fotos.id, slug: fotos.titel}) }}">
-											<img class="img-responsive" src="{{ asset('img/uploaded/' ~ fotos.fileurl) }}">
+										<a href="{{ path('actual_photo', {id: photos.id, slug: photos.title|lower|replace({' ': '-'}) }) }}">
+											<img class="img-responsive" src="{{ asset('img/uploaded/' ~ photos.fileurl) }}">
 											<div class="overlay">
-												<h2>{{ fotos.titel }}</h2>
+												<h2>{{ photos.title }}</h2>
 											</div>
 										</a>
 									</div>

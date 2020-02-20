@@ -5,65 +5,52 @@
 			padding-top: 3rem;
 		}
 	</style>
-	<link rel="stylesheet" type="text/css" href="{{ asset('/css/foto.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/photo.css') }}"/>
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 {% endblock %}
 
 {% block body %}
-	<div class="container bg-white shadow p-lg-4 p-md-3 p-sm-2">
+	<div class="container bg-white shadow-sm">
 		<div class="row py-4">
 			<div class=" col-lg-12 pb-5">
 				<div class="row py-4">
 					<div class=" col-lg-12 pb-5">
-						<h2 class="text-center">{{ foto.titel }}</h2>
+						<h2 class="text-center">{{ photo.title }}</h2>
 					</div>
-					<div class="col-lg-6 pr-3">
-						<div id="imageContainer">
-							<img style="width: 100%" src="{{ asset('img/uploaded/' ~ foto.fileurl) }}">
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="shadow p-3 h-100">
-							<h4>Author</h4>
-							<p>{{ foto.user.userName }}</p>
-							<h4>Description</h4>
-							<p>{{ foto.beschrijving }}</p>
+					<div class="col-lg-12 pr-3">
+						<div id="imageContainer" class="shadow-sm p-3 h-100">
+							<img data-toggle="modal" data-target="#myModal" style="width: 100%" src="{{ asset('img/uploaded/' ~ photo.fileurl) }}">
 						</div>
 					</div>
 				</div>
 
 				<div class="row py-4">
-					<div class="col-lg-6">
-						<div class="shadow p-3 h-100">
-							<div class="catergorie">
-								<h4>Catergorie</h4>
-								{# @foreach($categories as $categorie) #}
-								<p>categorie->name</p>
-								{# @endforeach #}
-							</div>
+					<div class="col-lg-6 pr-3">
+						<div class="shadow-sm p-3 h-100">
+							<h4>Description</h4>
+							<p>{{ photo.description }}</p>
 						</div>
 					</div>
 					<div class="col-lg-6">
-						<div class="shadow p-3 h-100">
-							<h4>Camera informatie</h4>
-							<h5 class="pt-3">Camera:</h5>
-							<p>camera->cameraBrand</p>
+						<div class="shadow-sm p-3 h-100">
+							<div class="catergorie">
+								<h4>Catergory</h4>
+								<p>{{ photo.category }}</p>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="row pt-4">
-					<div
-						class="col-md-6 col-md-offset-2">
-						{# @foreach($posts as $comment) #}
-						<div class="shadow rounded p-3">
+					<div class="col-md-12 col-md-offset-2">
+						<div class="shadow-sm rounded p-3">
+							<h4>Comments</h4>
 							<p>
-								<strong>Name:</strong>comment name</p>
+								<strong>Name:</strong><br/>Username</p>
 							<p>
-								<strong>Comment:</strong><br/>comment comment</p>
+								<strong>Comment:</strong><br/>This is a constructive comment saying nothing useful</p>
 						</div>
 						<br>
-						{# @endforeach #}
 					</div>
 
 					<div id="comment-form" class="col-md-6 col-md-offset-2">
@@ -77,7 +64,7 @@
 									<textarea name="comment" rows="5" class="form-control" id="comment"></textarea>
 								</div>
 								<div class="col-md-12 pt-3">
-									<input type="submit" class="btn btn-primary">
+									<input type="submit" class="btn text-white main-color">
 								</div>
 							</div>
 						</form>
@@ -86,4 +73,6 @@
 			</div>
 		</div>
 	</div>
+
+
 {% endblock %}

@@ -2,34 +2,34 @@
 
 namespace App\Controller;
 
-use App\Entity\Foto;
+use App\Entity\Photo;
 use App\Entity\User;
+use App\Entity\Category;
 use App\Form\PhotoUploadType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class PhotoController extends AbstractController
 {
     /**
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_AUTHOR') or is_granted('ROLE_SUPER_ADMIN')")
      * @Route("/photos/new", name="photo_new")
      */
     public function upload(Request $request)
     {
-        $photo = new Foto();
+        $photo = new Photo();
         $user = $this->getUser();
 
         $form = $this->createForm(PhotoUploadType::class, $photo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $photoFile */
             $photoFile = $form->get('fileurl')->getData();
-
-
             // file rename
             if ($photoFile) {
                 // hash file name for unique id
@@ -49,12 +49,10 @@ class PhotoController extends AbstractController
                 $photo->setFileurl($newFileName);
             }
             $photo->setUser($user);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($photo);
             $em->flush();
 
-            // go to, in this case, /photos after the photo has been uploaded
             return $this->redirect($this->generateUrl('photo'));
         }
 
@@ -69,25 +67,23 @@ class PhotoController extends AbstractController
     public function showPage()
     {
         // show all photos on the page
-        $foto = $this->getDoctrine()->getRepository(Foto::class)->findAll();
-        return $this->render('photo/photos.html.twig', ['foto' => $foto]);
-
-        // TODO: categories
+        $photo = $this->getDoctrine()->getRepository(Photo::class)->findAll();
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        return $this->render('photo/photos.html.twig', ['photo' => $photo, 'categories' => $categories]);
     }
 
     /**
      * @Route("photos/{id}/{slug}", name="actual_photo")
      */
-    public function showPhoto($id, UserInterface $user)
+    public function showPhoto($id)
     {
-        $foto = $this->getDoctrine()->getRepository(Foto::class)->findOneBy([
+        $photo = $this->getDoctrine()->getRepository(Photo::class)->findOneBy([
             'id' => $id
         ]);
 
-        $slug = $foto->getTitel();
+        $slug = $photo->getTitle();
         return $this->render('photo/actualphoto.html.twig', [
-            'foto' => $foto,
-            'user' => $user->getFotos(),
+            'photo' => $photo,
         ]);
     }
 }

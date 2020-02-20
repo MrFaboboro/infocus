@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<title>
-			{% block title %}Welcome!
+			{% block title %}New photo
 			{% endblock %}
 		</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -31,12 +31,12 @@
 					<div class="row">
 						<div class="col-xl-6 col-md-6 col-lg-6">
 							<div class="header-contact">
-								<a style="color: white; font-size: 16px;" href="#">
+								<a style="color: white; font-size: 16px;" href="tel:+31682046577">
 									<i class="fa fa-phone" style="color: white; font-size: 16px;"></i>
-									+880 256 356 256</a>
-								<a style="color: white; font-size: 16px;" href="#">
+									+31 6 820 465 77</a>
+								<a style="color: white; font-size: 16px;" href="mail:contact@infocus.eu">
 									<i class="fa fa-envelope" style="color: white; font-size: 16px;"></i>
-									support24@infocus.com</a>
+									contact@infocus.eu</a>
 							</div>
 						</div>
 						<div class="col-xl-6 col-md-6 col-lg-6">
@@ -57,8 +57,8 @@
 					<div class="row align-items-center">
 						<div class="col-xl-2 col-lg-2">
 							<div class="logo-img">
-								<a href="index.html">
-									<img src="img/icon/infocus.png" alt="">
+								<a href="/">
+									<img src="{{ asset('img/icon/infocus.png')}}" alt="">
 								</a>
 							</div>
 						</div>
@@ -74,7 +74,7 @@
 											<a class="{{ route starts with 'photo' ? 'active' }}" href="{{ path('photo') }}">Photos</a>
 										</li>
 										<li>
-											<a class="{{ route starts with 'projecten' ? 'active' }}" href="{{ path('projecten') }}">Projecten</a>
+											<a class="{{ route starts with 'about' ? 'active' }}" href="{{ path('about') }}">About</a>
 										</li>
 										<li>
 											<a class="{{ route starts with 'contact' ? 'active' }}" href="{{ path('contact') }}">Contact</a>
@@ -112,15 +112,14 @@
 				<div class="row justify-content-between">
 					<div class="col-sm-6 col-md-3 col-xl-4">
 						<div class="single-footer-widget footer_1">
-							<a href="index.html">
+							<a href="/">
 								<img src="img/icon/infocus.png" alt="">
 							</a>
 							<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
 							<div class="social-links">
 								<ul>
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+									<li><a target="_blank" href="https://github.com/MrFaboboro/"><i class="fa fa-github"></i></a></li>
+									<li><a target="_blank" href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
 								</ul>
 							</div>
 						</div>
@@ -130,14 +129,10 @@
 						<div class="single-footer-widget">
 							<h4>Links</h4>
 							<ul>
-								<li><a href="#">Over</a></li>
-								<li><a href="#">Media</a></li>
-								<li><a href="#">Lid worden</a></li>
-								<li><a href="#">Categorieën</a></li>
-								<li><a href="#">Policy</a></li>
-								<li><a href="#">AVG</a></li>
+								<li><a href="/about">About</a></li>
+								<li><a href="/privacy">Privacy Policy</a></li>
+								<li><a href="/sitemap">Sitemap</a></li>
 							</ul>
-
 						</div>
 					</div>
 
@@ -147,14 +142,13 @@
 							<div class="office-location">
 								<ul>
 									<li>
-										<strong>Kampen</strong>
-										<p>Oudestraat 216 K
+										<p>Ruiterschelling 12
 											<br>
-											8261 CA Kampen
+											8253 CG Dronten
 											<br>
-											038-711 03 08
+											<a href="tel:+36182046577">+31 6 802 465 77</a>
 											<br>
-											info@onetoshop.com
+											<a href="mail:info@infocus.eu">info@infocus.eu</a>
 										</p>
 									</li>
 								</ul>
@@ -171,40 +165,40 @@
 								Copyright &copy;<script>
 									document.write(new Date().getFullYear());
 								</script>
-								Onetoshop
+								InFocus
 							</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</footer>
-		{% block javascripts %}
-			<script src="{{ asset('js/vendor/modernizr-3.5.0.min.js')}}"></script>
-			<script src="{{ asset('js/vendor/jquery-1.12.4.min.js')}}"></script>
-			<script src="{{ asset('js/popper.min.js')}}"></script>
-			<script src="{{ asset('js/bootstrap.min.js')}}"></script>
-			<script src="{{ asset('js/owl.carousel.min.js')}}"></script>
-			<script src="{{ asset('js/isotope.pkgd.min.js')}}"></script>
-			<script src="{{ asset('js/ajax-form.js')}}"></script>
-			<script src="{{ asset('js/waypoints.min.js')}}"></script>
-			<script src="{{ asset('js/jquery.counterup.min.js')}}"></script>
-			<script src="{{ asset('js/imagesloaded.pkgd.min.js')}}"></script>
-			<script src="{{ asset('js/scrollIt.js')}}"></script>
-			<script src="{{ asset('js/jquery.scrollUp.min.js')}}"></script>
-			<script src="{{ asset('js/wow.min.js')}}"></script>
-			<script src="{{ asset('js/nice-select.min.js')}}"></script>
-			<script src="{{ asset('js/jquery.slicknav.min.js')}}"></script>
-			<script src="{{ asset('js/jquery.magnific-popup.min.js')}}"></script>
-			<script src="{{ asset('js/plugins.js')}}"></script>
+		<script src="{{ asset('js/vendor/modernizr-3.5.0.min.js')}}"></script>
+		<script src="{{ asset('js/vendor/jquery-1.12.4.min.js')}}"></script>
+		<script src="{{ asset('js/popper.min.js')}}"></script>
+		<script src="{{ asset('js/bootstrap.min.js')}}"></script>
+		<script src="{{ asset('js/owl.carousel.min.js')}}"></script>
+		<script src="{{ asset('js/isotope.pkgd.min.js')}}"></script>
+		<script src="{{ asset('js/ajax-form.js')}}"></script>
+		<script src="{{ asset('js/waypoints.min.js')}}"></script>
+		<script src="{{ asset('js/jquery.counterup.min.js')}}"></script>
+		<script src="{{ asset('js/imagesloaded.pkgd.min.js')}}"></script>
+		<script src="{{ asset('js/scrollIt.js')}}"></script>
+		<script src="{{ asset('js/jquery.scrollUp.min.js')}}"></script>
+		<script src="{{ asset('js/wow.min.js')}}"></script>
+		<script src="{{ asset('js/nice-select.min.js')}}"></script>
+		<script src="{{ asset('js/jquery.slicknav.min.js')}}"></script>
+		<script src="{{ asset('js/jquery.magnific-popup.min.js')}}"></script>
+		<script src="{{ asset('js/plugins.js')}}"></script>
 
-			<!--contact js-->
-			<script src="{{ asset('js/contact.js')}}"></script>
-			<script src="{{ asset('js/jquery.ajaxchimp.min.js')}}"></script>
-			<script src="{{ asset('js/jquery.form.js')}}"></script>
-			<script src="{{ asset('js/jquery.validate.min.js')}}"></script>
-			<script src="{{ asset('js/mail-script.js')}}"></script>
+		<!--contact js-->
+		<script src="{{ asset('js/contact.js')}}"></script>
+		<script src="{{ asset('js/jquery.ajaxchimp.min.js')}}"></script>
+		<script src="{{ asset('js/jquery.form.js')}}"></script>
+		<script src="{{ asset('js/jquery.validate.min.js')}}"></script>
+		<script src="{{ asset('js/mail-script.js')}}"></script>
 
-			<script src="{{ asset('js/main.js')}}"></script>
-		{% endblock %}
+		<script src="{{ asset('js/main.js')}}"></script>
+
+		{% block javascripts %}{% endblock %}
 	</body>
 </html>

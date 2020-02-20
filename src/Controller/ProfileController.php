@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Foto;
+use App\Entity\photo;
 use App\Entity\User;
 use App\Form\EditProfileType;
-use App\Repository\FotoRepository;
+use App\Repository\photoRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,9 +35,9 @@ class ProfileController extends AbstractController
             $em->flush();
         }
 
-        $fotos = $user->getFotos();
+        $photos = $user->getPhotos();
 
-        // dd($fotos);
+        // dd($photos);
         return $this->render('profile/profile.html.twig', [
             'form' => $form->createView(),
             'user' => $user,

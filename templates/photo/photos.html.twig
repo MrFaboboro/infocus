@@ -1,11 +1,10 @@
-{# SAVE DIT BESTAND ZONDER TE FORMATTEN / BEAUTIFY #}
-{# CTRL + K > CTRL + SHIFT + S #}
 {% extends 'base.html.twig' %}
-	{% block title %}
-Photos
+{% block title %}
+	Photos
 {% endblock %}
-	{% block stylesheets %}
-<link type="text/css" rel="stylesheet" href="css/photos.css"> {% endblock %}
+{% block stylesheets %}
+	<link type="text/css" rel="stylesheet" href="css/photos.css">
+{% endblock %}
 {% block body %}
 	<section id="content-container">
 		<div class="container bg-white shadow p-lg-4 p-md-3 p-sm-2">
@@ -15,41 +14,32 @@ Photos
 					<div class="categorie-filter">
 						<form method="get" action="/catalog">
 							<div class="form-check">
-								<input class="form-check-input" name="checkbox[]" type="checkbox" value="" id="">
-								<label class="form-check-label" for="">Label
-								</label>
+								{% for category in categories %}
+									<input class="form-check-input" name="checkbox[]" type="checkbox" value="" id="{{ category.name }}">
+									<label class="form-check-label" for="{{ category.name }}">{{ category.name }}
+									</label><br>
+								{% endfor %}
 							</div>
 						</form>
-					</div>
-					<div class="leeftijd-filter py-3">
-						<div>
-							<h5 class="border-bottom pt-2">Leeftijd opties</h5>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="defaultCheck7">
-							<label class="form-check-label" for="defaultCheck7">
-								21+ content
-							</label>
-						</div>
 					</div>
 				</div>
 				<div class="col-lg-10">
 					<div class="row">
 						<div class="col-md-3">
-							<h2>Foto's</h2>
+							<h2>Photo's</h2>
 						</div>
 						<div class="col-md-9 text-left text-md-right pb-3">
 							<form action="/photos/new">
-								<a class="btn text-white main-color">Upload</a>
+								<a class="btn text-white main-color" href="{{ path('photo_new') }}">Upload</a>
 							</form>
 						</div>
-						{% for fotos in foto %}
+						{% for photos in photo %}
 							<div class="col-lg-4 p-2">
 								<div class="hovereffect">
-									<a href="{{ path('actual_photo', {id: fotos.id, slug: fotos.titel})|lower }}">
-										<img class="img-responsive" src="{{ asset('img/uploaded/' ~ fotos.fileurl) }}">
+									<a href="{{ path('actual_photo', {id: photos.id, slug: photos.title|lower|replace({' ': '-'}) }) }}">
+										<img class="img-responsive" src="{{ asset('img/uploaded/' ~ photos.fileurl) }}">
 										<div class="overlay">
-											<h2>{{ fotos.titel }}</h2>
+											<h2>{{ photos.title }}</h2>
 										</div>
 									</a>
 								</div>
